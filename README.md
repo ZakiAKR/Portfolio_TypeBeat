@@ -50,7 +50,7 @@
   [Youtube(限定公開)]()  
   
 ## 実行ファイル
-実行ファイルダウンロード先 : [Googleドライブ]()  
+実行ファイルダウンロード先 : [Googleドライブ](https://drive.google.com/drive/folders/1PQ6N0tARPNwBagYML7QXD7sxD8VK__q3?usp=drive_link)  
 ※Googleドライブからダウンロードできます
 
 起動方法：「TypeBeat.exe」をダブルクリックして開いてください。
