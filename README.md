@@ -61,11 +61,11 @@
 - タイピングするときは「A~Zのアルファベットキー」と「伸ばし棒キー(ハイフンキー)」で該当するキーを押してください。
   
 ## Github内のファイルの説明
-- [MarkDownMaterialフォルダー](MarkDownMaterial)
+- MarkDownMaterialフォルダー
   
   → MarkDownの中に表示する動画や画像をまとめたファイル
 
-- [TypeBeatフォルダー](TypeBeat)
+- TypeBeatフォルダー
   
   → TypeBeatのUnityプロジェクト
 
