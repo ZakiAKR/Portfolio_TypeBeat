@@ -42,11 +42,11 @@
   
 ## 担当解説動画・プレイ動画
 - 担当解説動画  
-  [Googleドライブ(ダウンロード)]()  
+  [Googleドライブ(TypeBeat_プレイ動画.mp4)](https://drive.google.com/drive/folders/14gwnUN7PB6bLG85Lw6E7HcYZvOGEXn1o?usp=drive_link)  
   [Youtube(限定公開)]()  
   
 - プレイ動画  
-  [Googleドライブ(ダウンロード)]()  
+  [Googleドライブ()](https://drive.google.com/drive/folders/14gwnUN7PB6bLG85Lw6E7HcYZvOGEXn1o?usp=drive_link)  
   [Youtube(限定公開)]()  
   
 ## 実行ファイル
