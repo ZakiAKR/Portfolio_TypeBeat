@@ -1,90 +1,98 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering.Universal;
 
-// ƒŠƒUƒ‹ƒg‰æ–Ê‚ÉŠÖ‚·‚éƒ\[ƒXƒR[ƒh
+// ãƒªã‚¶ãƒ«ãƒˆç”»é¢ã«é–¢ã™ã‚‹ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰
 
 public class ResultManager : MonoBehaviour
 {
     [Space(10)]
 
-    // ‘Å‚Á‚½•¶š‚Ì”‚ğ•\¦‚·‚étext‚ğæ“¾
-    [SerializeField] private TextMeshProUGUI _mojiNum;
-    // ŠÔˆá‚¦‚Ä‘Å‚Á‚½”‚ğ•\¦‚·‚étext‚ğæ“¾
-    [SerializeField] private TextMeshProUGUI _missNum;
-    // •]‰¿‚ğ•\¦‚·‚étext‚ğæ“¾
-    [SerializeField] private TextMeshProUGUI _evalation;
+    // æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’è¡¨ç¤ºã™ã‚‹textã‚’å–å¾—
+    [SerializeField] 
+    private TextMeshProUGUI _mojiNum;
+    // é–“é•ãˆã¦æ‰“ã£ãŸæ•°ã‚’è¡¨ç¤ºã™ã‚‹textã‚’å–å¾—
+    [SerializeField] 
+    private TextMeshProUGUI _missNum;
+    // è©•ä¾¡ã‚’è¡¨ç¤ºã™ã‚‹textã‚’å–å¾—
+    [SerializeField] 
+    private TextMeshProUGUI _evalation;
 
     [Space(10)]
 
-    //u–ß‚év‚Æ‚¢‚¤ƒ{ƒ^ƒ“‚ğƒIƒuƒWƒFƒNƒg‚Æ‚µ‚Äæ“¾
-    [SerializeField] private GameObject _selectButton;
+    //ã€Œæˆ»ã‚‹ã€ã¨ã„ã†ãƒœã‚¿ãƒ³ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã—ã¦å–å¾—
+    [SerializeField] 
+    private GameObject _selectButton;
 
     [Space(10)]
 
-    // •¶š‚Ì”‚ğ•\¦‚·‚é‘Ò‚¿‚ÌŠÔ‚ğİ’è‚·‚é•Ï”
-    public float firstWaitTime;
-    // •]‰¿‚Ì•¶š‚ğ•\¦‚·‚é‘Ò‚¿‚ÌŠÔ‚ğİ’è‚·‚é•Ï”
-    public float secondWaitTime;
+    // æ–‡å­—ã®æ•°ã‚’è¡¨ç¤ºã™ã‚‹å¾…ã¡ã®æ™‚é–“ã‚’è¨­å®šã™ã‚‹å¤‰æ•°
+    [SerializeField]
+    private float firstWaitTime;
+    // è©•ä¾¡ã®æ–‡å­—ã‚’è¡¨ç¤ºã™ã‚‹å¾…ã¡ã®æ™‚é–“ã‚’è¨­å®šã™ã‚‹å¤‰æ•°
+    [SerializeField]
+    private float secondWaitTime;
 
-    // Šg‘åk¬‚·‚é‘å‚«‚³‚ğİ’è‚·‚é•Ï”
-    public float scallSize;
-    // ƒ{ƒ^ƒ“‚Ì‘å‚«‚³‚ªÅ‘å‚É‚È‚éŠÔ‚ğİ’è‚·‚é•Ï”
-    public float maxTime;
-    // ƒ{ƒ^ƒ“‚ÌŠg‘åk¬‚ÌƒXƒs[ƒh
-    public float moveSpeed;
-    // ŠÔ‚ğ•Û‘¶‚·‚é•Ï”
-    private float time=0;
-    // Šg‘åk¬‚ğØ‚è‘Ö‚¦‚é”»’è‚ğ‚·‚é•Ï”
+    // ãƒœã‚¿ãƒ³ã®å¤§ãã•ãŒæœ€å¤§ã«ãªã‚‹æ™‚é–“ã‚’è¨­å®šã™ã‚‹å¤‰æ•°
+    [SerializeField]
+    private float maxTime;
+    // ãƒœã‚¿ãƒ³ã®æ‹¡å¤§ç¸®å°ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
+    [SerializeField]
+    private float moveSpeed;
+    // æ™‚é–“ã‚’ä¿å­˜ã™ã‚‹å¤‰æ•°
+    private float _time = 0;
+    // æ‹¡å¤§ç¸®å°ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹åˆ¤å®šã‚’ã™ã‚‹å¤‰æ•°
     private bool enlarge = true;
 
-    // ‘Å‚Á‚½•¶š‚Ì”‚ğ•Û‘¶‚·‚é•Ï”
+    // æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’ä¿å­˜ã™ã‚‹å¤‰æ•°
     private int _countMoji;
-    // ŠÔˆá‚¦‚Ä‘Å‚Á‚½•¶š‚Ì”‚ğ•Û‘¶‚·‚é•Ï”
+    // é–“é•ãˆã¦æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’ä¿å­˜ã™ã‚‹å¤‰æ•°
     private int _missMoji;
-    // ‰ğ“š‚Ì•¶š‚Ì”‚ğ•Û‘¶‚·‚é•Ï”
+    // è§£ç­”ã®æ–‡å­—ã®æ•°ã‚’ä¿å­˜ã™ã‚‹å¤‰æ•°
     private int _kaitouMoji;
-    // •¶š‚ğ“¦‚µ‚½”‚ğŒvZ‚µ‚Ä•Û‘¶‚·‚é•Ï”
+    // æ–‡å­—ã‚’é€ƒã—ãŸæ•°ã‚’è¨ˆç®—ã—ã¦ä¿å­˜ã™ã‚‹å¤‰æ•°
     private float _notMoji;
-    // ŒvZŒ‹‰Ê‚ğ•Û‘¶‚·‚é•Ï”
-    private int _totalPoint;
 
     [Space(10)]
 
-    // •]‰¿‚ÌŠî€‚Æ‚È‚éŠ„‡‚ğ’è‹`‚·‚é•Ï”
+    // è©•ä¾¡ã®åŸºæº–ã¨ãªã‚‹å‰²åˆã‚’å®šç¾©ã™ã‚‹å¤‰æ•°
     [Header("Valuation Ratio")]
-    public float[] valuation = new float[3];
+    [SerializeField]
+    private float[] valuation = new float[3];
 
-    // ‰ğ“š‚Ì•¶š”‚ÆŠ„‡‚ğŒvZ‚µ‚½Œ‹‰Ê‚ğ•Û‘¶‚·‚é•Ï”
+    // è§£ç­”ã®æ–‡å­—æ•°ã¨å‰²åˆã‚’è¨ˆç®—ã—ãŸçµæœã‚’ä¿å­˜ã™ã‚‹å¤‰æ•°
     private int[] _ratioPoint=new int[3];
+
+    [SerializeField]
+    private float missPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ‘Å‚Á‚½•¶š‚Ì”‚ğQÆ‚µ‚Ä•Û‘¶—p‚Ì•Ï”‚É‘ã“ü
+        // æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’å‚ç…§ã—ã¦ä¿å­˜ç”¨ã®å¤‰æ•°ã«ä»£å…¥
         _countMoji = CountManager.countMojiNum;
 
-        // ŠÔˆá‚¢‚Ì•¶š‚Ì”‚ğQÆ‚µ‚Ä•Û‘¶—p‚Ì•Ï”‚É‘ã“ü
+        // é–“é•ã„ã®æ–‡å­—ã®æ•°ã‚’å‚ç…§ã—ã¦ä¿å­˜ç”¨ã®å¤‰æ•°ã«ä»£å…¥
         _missMoji = CountManager.missMojiNum;
 
-        // ‰ğ“š‚Ì•¶š‚Ì”‚ğQÆ‚µ‚Ä•Û‘¶—p‚Ì•Ï”‚É‘ã“ü
+        // è§£ç­”ã®æ–‡å­—ã®æ•°ã‚’å‚ç…§ã—ã¦ä¿å­˜ç”¨ã®å¤‰æ•°ã«ä»£å…¥
         _kaitouMoji = CountManager.kaitouMojiNum;
 
-        // •¶š‚ğ•\¦‚µ‚È‚¢‚æ‚¤‚É‚·‚éˆ—
+        // æ–‡å­—ã‚’è¡¨ç¤ºã—ãªã„ã‚ˆã†ã«ã™ã‚‹å‡¦ç†
         _mojiNum.text = "";
         _missNum.text = "";
         _evalation.text = "";
 
-        // u–ß‚év‚Ìƒ{ƒ^ƒ“‚ğ‘I‘ğó‘Ô‚É‚µ‚Ä‚¨‚­
+        // ã€Œæˆ»ã‚‹ã€ã®ãƒœã‚¿ãƒ³ã‚’é¸æŠçŠ¶æ…‹ã«ã—ã¦ãŠã
         EventSystem.current.SetSelectedGameObject(_selectButton);
 
-        // ‰ğ“š‚Ì•¶š‚ğ‘Å‚Ä‚È‚©‚Á‚½•¶š”‚ğŒvZ
+        // è§£ç­”ã®æ–‡å­—ã‚’æ‰“ã¦ãªã‹ã£ãŸæ–‡å­—æ•°ã‚’è¨ˆç®—
         _notMoji = _kaitouMoji - _countMoji;
 
-        // ‰ğ“š‚Ì•¶š”‚©‚çŠ„‚èo‚µ‚½Š„‡‚ğ•Û‘¶—p‚Ì•Ï”‚É‘ã“ü
+        // è§£ç­”ã®æ–‡å­—æ•°ã‹ã‚‰å‰²ã‚Šå‡ºã—ãŸå‰²åˆã‚’ä¿å­˜ç”¨ã®å¤‰æ•°ã«ä»£å…¥
         for (int i = 0; i < valuation.Length; i++)
         {
             _ratioPoint[i] = (int)(_kaitouMoji * valuation[i]);
@@ -95,36 +103,36 @@ public class ResultManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // •¶š‚Ì‰‰o‚ğ‚·‚éƒRƒ‹[ƒ`ƒ“
+        // æ–‡å­—ã®æ¼”å‡ºã‚’ã™ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³
         StartCoroutine(Set_Text());
 
-        // ƒ{ƒ^ƒ“‚ªŠg‘åk¬‚·‚é‰‰o‚Ìˆ—
+        // ãƒœã‚¿ãƒ³ãŒæ‹¡å¤§ç¸®å°ã™ã‚‹æ¼”å‡ºã®å‡¦ç†
         Scaling_Button(_selectButton);
     }
 
-    // •\¦‚·‚é•¶š‚ğŠÔ‚ğ‹ó‚¯‚Ä•\¦‚·‚é‰‰o‚ÌƒRƒ‹[ƒ`ƒ“
+    // è¡¨ç¤ºã™ã‚‹æ–‡å­—ã‚’æ™‚é–“ã‚’ç©ºã‘ã¦è¡¨ç¤ºã™ã‚‹æ¼”å‡ºã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
     private IEnumerator Set_Text()
     {
-        // ‘Å‚Á‚½•¶š‚ğ•\¦‚·‚é‚Ü‚Å‚Ì‘Ò‚¿‚ÌŠÔ
+        // æ‰“ã£ãŸæ–‡å­—ã‚’è¡¨ç¤ºã™ã‚‹ã¾ã§ã®å¾…ã¡ã®æ™‚é–“
         yield return new WaitForSeconds(firstWaitTime);
 
-        // ‘Å‚Á‚½•¶š‚Ì”‚ğ•\¦‚·‚é
+        // æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’è¡¨ç¤ºã™ã‚‹
         _mojiNum.text = _countMoji.ToString();
 
-        // ŠÔˆá‚¦‚Ä‘Å‚Á‚½•¶š‚ğ•\¦‚·‚é‚Ü‚Å‚Ì‘Ò‚¿‚ÌŠÔ
+        // é–“é•ãˆã¦æ‰“ã£ãŸæ–‡å­—ã‚’è¡¨ç¤ºã™ã‚‹ã¾ã§ã®å¾…ã¡ã®æ™‚é–“
         yield return new WaitForSeconds(firstWaitTime);
 
-        // ŠÔˆá‚¦‚Ä‘Å‚Á‚½•¶š‚Ì”‚ğ•\¦‚·‚é
+        // é–“é•ãˆã¦æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’è¡¨ç¤ºã™ã‚‹
         _missNum.text = (_missMoji+(int)_notMoji).ToString();
 
-        // •]‰¿‚ğ•\¦‚·‚é‚Ü‚Å‚Ì‘Ò‚¿‚ÌŠÔ
+        // è©•ä¾¡ã‚’è¡¨ç¤ºã™ã‚‹ã¾ã§ã®å¾…ã¡ã®æ™‚é–“
         yield return new WaitForSeconds(secondWaitTime);
 
-        // •]‰¿‚·‚éŠî€‚Ìˆ—
-        // ‘Å‚Á‚½•¶š‚ÆŠÔˆá‚¦‚Ä‘Å‚Á‚½•¶š‚Ì”‚Æ“¦‚µ‚½”–1.2”{‚Ì”‚ğŒvZ
-        _totalPoint = _countMoji - (_missMoji + (int)(_notMoji * 1.2f));
+        // è©•ä¾¡ã™ã‚‹åŸºæº–ã®å‡¦ç†
+        // æ‰“ã£ãŸæ–‡å­—ã‹ã‚‰é–“é•ãˆã¦æ‰“ã£ãŸæ–‡å­—ï¼ˆç­‰å€ï¼‰ã®æ•°ã¨é€ƒã—ãŸæ•°(1.2å€)ã®æ•°ã‚’è¶³ã—ãŸã‚‚ã®ã¨è¨ˆç®—
+        int _totalPoint = _countMoji - (_missMoji + (int)(_notMoji * missPoint));
 
-        // •]‰¿‚ğ•¶š‚Å•\¦
+        // è©•ä¾¡ã‚’æ–‡å­—ã§è¡¨ç¤º
         if (_ratioPoint[0] <= _totalPoint)
         {
             _evalation.text = "A";
@@ -143,31 +151,31 @@ public class ResultManager : MonoBehaviour
         }
     }
 
-    // ƒ{ƒ^ƒ“‚ğŠg‘åk¬‚·‚é‰‰o‚ÌŠÖ”
+    // ãƒœã‚¿ãƒ³ã‚’æ‹¡å¤§ç¸®å°ã™ã‚‹æ¼”å‡ºã®é–¢æ•°
     void Scaling_Button(GameObject image)
     {
-        // “®‚«‚ğŠŠ‚ç‚©‚É‚·‚éˆ—
-        scallSize = Time.deltaTime * moveSpeed;
+        // å‹•ãã‚’æ»‘ã‚‰ã‹ã«ã™ã‚‹å‡¦ç†
+        float scallSize = Time.deltaTime * moveSpeed;
 
-        // Šg‘åk¬‚ğŠÔ‚ÅØ‚è‘Ö‚¦‚éˆ—
-        if (time < 0) { enlarge = true; }
-        if (time > maxTime) { enlarge = false; }
+        // æ‹¡å¤§ç¸®å°ã‚’æ™‚é–“ã§åˆ‡ã‚Šæ›¿ãˆã‚‹å‡¦ç†
+        if (_time < 0) { enlarge = true; }
+        if (_time > maxTime) { enlarge = false; }
 
-        // ƒIƒuƒWƒFƒNƒg‚Ì‘å‚«‚³‚ğ•Ï‚¦‚éˆ—
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¤§ãã•ã‚’å¤‰ãˆã‚‹å‡¦ç†
         if (enlarge)
         {
-            // Šg‘å‚·‚é‚½‚ß‚ÉŠÔ‚ğ‘‚â‚·
-            time += Time.deltaTime;
+            // æ‹¡å¤§ã™ã‚‹ãŸã‚ã«æ™‚é–“ã‚’å¢—ã‚„ã™
+            _time += Time.deltaTime;
 
-            // ƒIƒuƒWƒFƒNƒg‚Ì‘å‚«‚³‚ğ‘å‚«‚­‚·‚é
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¤§ãã•ã‚’å¤§ããã™ã‚‹
             image.transform.localScale += new Vector3(scallSize, scallSize, scallSize);
         }
         else
         {
-            // k¬‚·‚é‚½‚ß‚ÉŠÔ‚ğŒ¸‚ç‚·
-            time -= Time.deltaTime;
+            // ç¸®å°ã™ã‚‹ãŸã‚ã«æ™‚é–“ã‚’æ¸›ã‚‰ã™
+            _time -= Time.deltaTime;
 
-            // ƒIƒuƒWƒFƒNƒg‚Ì‘å‚«‚³‚ğ¬‚³‚­‚·‚é
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¤§ãã•ã‚’å°ã•ãã™ã‚‹
             image.transform.localScale -= new Vector3(scallSize, scallSize, scallSize);
         }
     }

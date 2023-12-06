@@ -1,47 +1,51 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-// ƒ|[ƒY‰æ–Ê‚âƒƒCƒ“‚ÌƒVƒXƒeƒ€ˆÈŠO‚ÉŠÖ‚í‚éƒ\[ƒXƒR[ƒh
+// ãƒãƒ¼ã‚ºç”»é¢ã‚„ãƒ¡ã‚¤ãƒ³ã®ã‚·ã‚¹ãƒ†ãƒ ä»¥å¤–ã«é–¢ã‚ã‚‹ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰
 
 public class OutGameManager : MonoBehaviour
 {
-    // ƒJƒEƒ“ƒgƒ_ƒEƒ“‚Æ‘S‘Ì‚ÌŠÔ‚Ì”»’è‚ğg—p‚·‚é‚½‚ß‚ÉuTimerManagerv‚ğæ“¾
-    [SerializeField] public TimerManager _timeSystem;
+    // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã¨å…¨ä½“ã®æ™‚é–“ã®åˆ¤å®šã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«ã€ŒTimerManagerã€ã‚’å–å¾—
+    [SerializeField] 
+    private TimerManager _timeSystem;
 
     [Space(10)]
 
-    // –ß‚éƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚É‰¹‚ÉŠÖ‚µ‚Ä‚Ìˆ—‚ğg—p‚·‚é‚½‚ßAuAudioManagerv‚ğæ“¾
-    [SerializeField] public AudioManager _audioSystem;
+    // æˆ»ã‚‹ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«éŸ³ã«é–¢ã—ã¦ã®å‡¦ç†ã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã€ã€ŒAudioManagerã€ã‚’å–å¾—
+    [SerializeField] 
+    private AudioManager _audioSystem;
 
     [Space(10)]
 
-    // ‘S‘Ì‚ÌŠÔ‚ªI‚í‚Á‚½Œã‚ÉƒƒCƒ“‚ÌƒVƒXƒeƒ€‚ª‘±‚©‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß‚ÉuInGameSystemv‚ğæ“¾
-    [SerializeField] private GameObject _typeingSystem;
+    // å…¨ä½“ã®æ™‚é–“ãŒçµ‚ã‚ã£ãŸå¾Œã«ãƒ¡ã‚¤ãƒ³ã®ã‚·ã‚¹ãƒ†ãƒ ãŒç¶šã‹ãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã«ã€ŒInGameSystemã€ã‚’å–å¾—
+    [SerializeField] 
+    private GameObject _typeingSystem;
 
     [Space(10)]
 
-    // ESCƒL[‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚É•\¦‚·‚éƒpƒlƒ‹
-    [SerializeField] private GameObject _endPanel;
+    // ESCã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«è¡¨ç¤ºã™ã‚‹ãƒ‘ãƒãƒ«
+    [SerializeField] 
+    private GameObject _endPanel;
 
     [Space(10)]
 
-    // ƒ|[ƒY‰æ–Ê‚Ìƒ{ƒ^ƒ“‚ğƒIƒuƒWƒFƒNƒg‚Æ‚µ‚Äæ“¾
-    [SerializeField] private GameObject[] _selectButton = new GameObject[3];
-    // ‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚Ìƒ{ƒ^ƒ“‚Ì‰æ‘œ‚ğƒIƒuƒWƒFƒNƒg‚Æ‚µ‚Äæ“¾
-    [SerializeField] private GameObject[] _backButton = new GameObject[3];
+    // ãƒãƒ¼ã‚ºç”»é¢ã®ãƒœã‚¿ãƒ³ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã—ã¦å–å¾—
+    [SerializeField] 
+    private GameObject[] _selectButton = new GameObject[3];
+    // é¸æŠã•ã‚Œã¦ã„ãªã„ã¨ãã®ãƒœã‚¿ãƒ³ã®ç”»åƒã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã—ã¦å–å¾—
+    [SerializeField] 
+    private GameObject[] _backButton = new GameObject[3];
 
-    // ƒ|[ƒY‰æ–Ê‚ª•\¦‚³‚ê‚½‚©‚ğ”»’è‚·‚é‚½‚ß‚Ì•Ï”
-    [HideInInspector] public bool isPose;
-
-    // ‘I‘ğ’†‚Ìƒ{ƒ^ƒ“‚Ìî•ñ‚ğ•Û‘¶‚µ‚Ä‚¨‚­‚½‚ß‚Ì•Ï”
-    private GameObject _button;
+    // ãƒãƒ¼ã‚ºç”»é¢ãŒè¡¨ç¤ºã•ã‚ŒãŸã‹ã‚’åˆ¤å®šã™ã‚‹ãŸã‚ã®å¤‰æ•°
+    [HideInInspector] 
+    public bool isPose;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         _endPanel.SetActive(false);
         isPose = false;
     }
@@ -49,76 +53,76 @@ public class OutGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ‘I‘ğ’†‚Ìƒ{ƒ^ƒ“‚Ìî•ñ‚ğ•Û‘¶
-        _button = EventSystem.current.currentSelectedGameObject;
+        // é¸æŠä¸­ã®ãƒœã‚¿ãƒ³ã®æƒ…å ±ã‚’ä¿å­˜
+        GameObject _button = EventSystem.current.currentSelectedGameObject;
 
-        // ƒJƒEƒ“ƒgƒ_ƒEƒ“Œã‚Æ‘S‘Ì‚ÌŠÔ“à‚ÉESCƒL[‚ªg—p‚Å‚«‚é‚æ‚¤‚É‚·‚éˆ—
+        // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³å¾Œã¨å…¨ä½“ã®æ™‚é–“å†…ã«ESCã‚­ãƒ¼ãŒä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹å‡¦ç†
         if (_timeSystem.isCountDown&& !_timeSystem.isFinish && Input.GetKeyDown(KeyCode.Escape))
         {
-            // ƒ|[ƒY‰æ–Ê‚ª•\¦‚³‚ê‚½‚±‚Æ‚ğİ’è‚·‚é
+            // ãƒãƒ¼ã‚ºç”»é¢ãŒè¡¨ç¤ºã•ã‚ŒãŸã“ã¨ã‚’è¨­å®šã™ã‚‹
             isPose = true;
 
-            // ƒQ[ƒ€“à‚ÌŠÔ‚ğ~‚ß‚é
+            // ã‚²ãƒ¼ãƒ å†…ã®æ™‚é–“ã‚’æ­¢ã‚ã‚‹
             Time.timeScale = 0f;
 
-            // BGMASE‚ÉŠÖ‚µ‚Ä‚Ìˆ—
+            // BGMã€SEã«é–¢ã—ã¦ã®å‡¦ç†
             _audioSystem.IsPose_Sound();
 
-            // ƒpƒlƒ‹‚ğ•\¦‚·‚é
+            // ãƒ‘ãƒãƒ«ã‚’è¡¨ç¤ºã™ã‚‹
             _endPanel.SetActive(true);
 
-            // Å‰‚É‘I‘ğó‘Ô‚É‚µ‚Ä‚¨‚­ƒ{ƒ^ƒ“‚ğİ’è‚·‚é
+            // æœ€åˆã«é¸æŠçŠ¶æ…‹ã«ã—ã¦ãŠããƒœã‚¿ãƒ³ã‚’è¨­å®šã™ã‚‹
             EventSystem.current.SetSelectedGameObject(_selectButton[0]);
         }
 
-        // ‘S‘Ì‚ÌŠÔ‚ªI‚í‚Á‚½ê‡
+        // å…¨ä½“ã®æ™‚é–“ãŒçµ‚ã‚ã£ãŸå ´åˆ
         if (_timeSystem.isFinish)
         {
-            // InGameSystem‚ğg—p‚Å‚«‚È‚­‚·‚é
+            // InGameSystemã‚’ä½¿ç”¨ã§ããªãã™ã‚‹
             _typeingSystem.SetActive(false);
         }
 
-        // ƒ{ƒ^ƒ“‚Ì‰‰oˆ—
+        // ãƒœã‚¿ãƒ³ã®æ¼”å‡ºå‡¦ç†
         if (_button == _selectButton[0])
         {
-            // ƒ{ƒ^ƒ“‚Ì‰‰o‚ÌŠÖ”
+            // ãƒœã‚¿ãƒ³ã®æ¼”å‡ºã®é–¢æ•°
             Button_Direction(0, 1, 2);
         }
         if (_button == _selectButton[1])
         {
-            // ƒ{ƒ^ƒ“‚Ì‰‰o‚ÌŠÖ”
+            // ãƒœã‚¿ãƒ³ã®æ¼”å‡ºã®é–¢æ•°
             Button_Direction(1, 0, 2);
         }
         if (_button == _selectButton[2])
         {
-            // ƒ{ƒ^ƒ“‚Ì‰‰o‚ÌŠÖ”
+            // ãƒœã‚¿ãƒ³ã®æ¼”å‡ºã®é–¢æ•°
             Button_Direction(2, 0, 1);
         }
     }
 
-    // EscƒL[‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Éo‚éu‘±‚«‚ÖRETUENv‚Ì‚½‚ß‚ÌŠÖ”
+    // Escã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã¨ãã«å‡ºã‚‹ã€Œç¶šãã¸RETUENã€ã®ãŸã‚ã®é–¢æ•°
     public void OnClick_ReturnButton()
     {
-        // ƒ|[ƒY‰æ–Ê‚ª•\¦‚³‚ê‚½‚±‚Æ‚ğİ’è‚·‚é
+        // ãƒãƒ¼ã‚ºç”»é¢ãŒè¡¨ç¤ºã•ã‚ŒãŸã“ã¨ã‚’è¨­å®šã™ã‚‹
         isPose = false;
 
-        // ƒpƒlƒ‹‚ğ”ñ•\¦‚É‚·‚é
+        // ãƒ‘ãƒãƒ«ã‚’éè¡¨ç¤ºã«ã™ã‚‹
         _endPanel.SetActive(false);
 
-        // BGMASE‚ÉŠÖ‚µ‚Ä‚Ìˆ—
+        // BGMã€SEã«é–¢ã—ã¦ã®å‡¦ç†
         _audioSystem.OnClick_Button();
 
-        // ƒQ[ƒ€“à‚ÌŠÔ‚ği‚ß‚é
+        // ã‚²ãƒ¼ãƒ å†…ã®æ™‚é–“ã‚’é€²ã‚ã‚‹
         Time.timeScale = 1;
     }
 
-    // ‘I‘ğ’†‚Æ‘I‘ğ’†ˆÈŠO‚Ìƒ{ƒ^ƒ“‚Ì‰‰o‚ÌŠÖ”
+    // é¸æŠä¸­ã¨é¸æŠä¸­ä»¥å¤–ã®ãƒœã‚¿ãƒ³ã®æ¼”å‡ºã®é–¢æ•°
     void Button_Direction(int falseNum, int trueNum1, int trueNum2)
     {
-        // ‰B‚µ‚Ì‰æ‘œ‚ğ”ñ•\¦‚É‚·‚é
+        // éš ã—ã®ç”»åƒã‚’éè¡¨ç¤ºã«ã™ã‚‹
         _backButton[falseNum].SetActive(false);
 
-        // ‰B‚µ‚Ì‰æ‘œ‚ğ•\¦‚·‚é
+        // éš ã—ã®ç”»åƒã‚’è¡¨ç¤ºã™ã‚‹
         _backButton[trueNum1].SetActive(true);
         _backButton[trueNum2].SetActive(true);
     }

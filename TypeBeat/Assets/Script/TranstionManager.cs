@@ -1,76 +1,71 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// ƒV[ƒ“‘JˆÚ‚ÉŠÖ‚·‚éƒ\[ƒXƒR[ƒh
+// ã‚·ãƒ¼ãƒ³é·ç§»ã«é–¢ã™ã‚‹ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰
 
 public class TranstionManager : MonoBehaviour
 {
-    // SE‚ğ—¬‚µ‚Ä‚©‚çƒV[ƒ“‘JˆÚ‚ÉˆÚ‚é‚Ü‚Å‚ÌŠÔ‚ğ•Û‘¶‚·‚é•Ï”
-    public float seWaitTime;
+    // SEã‚’æµã—ã¦ã‹ã‚‰ã‚·ãƒ¼ãƒ³é·ç§»ã«ç§»ã‚‹ã¾ã§ã®æ™‚é–“ã‚’ä¿å­˜ã™ã‚‹å¤‰æ•°
+    [SerializeField]
+    private float seWaitTime;
 
     private void Start()
     {
-        // ƒQ[ƒ€“à‚ÌŠÔ‚ği‚ß‚é
+        // ã‚²ãƒ¼ãƒ å†…ã®æ™‚é–“ã‚’é€²ã‚ã‚‹
         Time.timeScale = 1;
     }
 
     public void To_Title()
     {
-        // ƒQ[ƒ€“à‚ÌŠÔ‚ği‚ß‚é
-        Time.timeScale = 1;
-
-        // SE‚ğ–Â‚ç‚µ‚½ŒãŠÔ‚ğ’u‚­‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+        // SEã‚’é³´ã‚‰ã—ãŸå¾Œæ™‚é–“ã‚’ç½®ããŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
         StartCoroutine(Sound_SceneSE(0));
     }
 
     public void To_Main()
     {
-        // ƒQ[ƒ€“à‚ÌŠÔ‚ği‚ß‚é
-        Time.timeScale = 1;
-
-        // SE‚ğ–Â‚ç‚µ‚½ŒãŠÔ‚ğ’u‚­‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+        // SEã‚’é³´ã‚‰ã—ãŸå¾Œæ™‚é–“ã‚’ç½®ããŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
         StartCoroutine(Sound_SceneSE(1));
     }
 
     public void To_Result()
     {
-        // ƒQ[ƒ€“à‚ÌŠÔ‚ği‚ß‚é
-        Time.timeScale = 1;
-
-        // SE‚ğ–Â‚ç‚µ‚½ŒãŠÔ‚ğ’u‚­‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+        // SEã‚’é³´ã‚‰ã—ãŸå¾Œæ™‚é–“ã‚’ç½®ããŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
         StartCoroutine(Sound_SceneSE(2));
     }
 
     public void End_Game()
     {
-        // ƒQ[ƒ€“à‚ÌŠÔ‚ği‚ß‚é
-        Time.timeScale = 1;
-
-        // SE‚ğ–Â‚ç‚µ‚½ŒãŠÔ‚ğ’u‚­‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+        // SEã‚’é³´ã‚‰ã—ãŸå¾Œæ™‚é–“ã‚’ç½®ããŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
         StartCoroutine(Sound_EndSE());
     }
 
 
-    // SE‚ğ–Â‚ç‚µ‚½ŒãŠÔ‚ğ’u‚­‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“iƒV[ƒ“‘JˆÚ—pj
+    // SEã‚’é³´ã‚‰ã—ãŸå¾Œæ™‚é–“ã‚’ç½®ããŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³ï¼ˆã‚·ãƒ¼ãƒ³é·ç§»ç”¨ï¼‰
     private IEnumerator Sound_SceneSE(int numScene)
     {
-        // SE‚ª–Â‚èI‚í‚é‚Ü‚Å‚Ì‘Ò‚¿‚ÌŠÔ
+        // ã‚²ãƒ¼ãƒ å†…ã®æ™‚é–“ã‚’é€²ã‚ã‚‹
+        Time.timeScale = 1;
+
+        // SEãŒé³´ã‚Šçµ‚ã‚ã‚‹ã¾ã§ã®å¾…ã¡ã®æ™‚é–“
         yield return new WaitForSeconds(seWaitTime);
 
-        // w’è‚ÌƒV[ƒ“‚É‘JˆÚ‚·‚é
+        // æŒ‡å®šã®ã‚·ãƒ¼ãƒ³ã«é·ç§»ã™ã‚‹
         SceneManager.LoadScene(numScene);
     }
 
 
-    // SE‚ğ–Â‚ç‚µ‚½ŒãŠÔ‚ğ’u‚­‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“iƒQ[ƒ€I—¹—pj
+    // SEã‚’é³´ã‚‰ã—ãŸå¾Œæ™‚é–“ã‚’ç½®ããŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³ï¼ˆã‚²ãƒ¼ãƒ çµ‚äº†ç”¨ï¼‰
     private IEnumerator Sound_EndSE()
     {
-        // SE‚ª–Â‚èI‚í‚é‚Ü‚Å‚Ì‘Ò‚¿‚ÌŠÔ
+        // ã‚²ãƒ¼ãƒ å†…ã®æ™‚é–“ã‚’é€²ã‚ã‚‹
+        Time.timeScale = 1;
+
+        // SEãŒé³´ã‚Šçµ‚ã‚ã‚‹ã¾ã§ã®å¾…ã¡ã®æ™‚é–“
         yield return new WaitForSeconds(seWaitTime);
 
-        // ƒQ[ƒ€‚ğ•Â‚¶‚éˆ—
+        // ã‚²ãƒ¼ãƒ ã‚’é–‰ã˜ã‚‹å‡¦ç†
         Application.Quit();
     }
 }

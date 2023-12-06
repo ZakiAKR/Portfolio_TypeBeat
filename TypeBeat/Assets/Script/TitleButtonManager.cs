@@ -1,39 +1,37 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class TitleButtonManager : MonoBehaviour
 {
-    // ƒ^ƒCƒgƒ‹‰æ–Ê‚Ìƒ{ƒ^ƒ“‚ğƒIƒuƒWƒFƒNƒg‚Æ‚µ‚Äæ“¾
-    [SerializeField] GameObject[] _selectButton=new GameObject[2];
+    // ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã®ãƒœã‚¿ãƒ³ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã—ã¦å–å¾—
+    [SerializeField] 
+    GameObject[] _selectButton=new GameObject[2];
     
     [Space(10)]
 
-    // Šg‘åk¬‚·‚é‘å‚«‚³‚ğİ’è‚·‚é•Ï”
-    public float scallSize;
-    // ƒ{ƒ^ƒ“‚Ì‘å‚«‚³‚ªÅ‘å‚É‚È‚éŠÔ‚ğİ’è‚·‚é•Ï”
-    public float maxTime;
-    // ƒ{ƒ^ƒ“‚ÌŠg‘åk¬‚ÌƒXƒs[ƒh
-    public float moveSpeed;
-    // ŠÔ‚ğ•Û‘¶‚·‚é•Ï”
-    private float time;
-    // Šg‘åk¬‚ğØ‚è‘Ö‚¦‚é”»’è‚ğ‚·‚é•Ï”
-    private bool enlarge = true;
+    // ãƒœã‚¿ãƒ³ã®å¤§ãã•ãŒæœ€å¤§ã«ãªã‚‹æ™‚é–“ã‚’è¨­å®šã™ã‚‹å¤‰æ•°
+    [SerializeField]
+    private float maxTime;
+    // ãƒœã‚¿ãƒ³ã®æ‹¡å¤§ç¸®å°ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
+    [SerializeField]
+    private float moveSpeed;
+    // æ™‚é–“ã‚’ä¿å­˜ã™ã‚‹å¤‰æ•°
+    private float _time;
+    // æ‹¡å¤§ç¸®å°ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹åˆ¤å®šã‚’ã™ã‚‹å¤‰æ•°
+    private bool _enlarge = true;
 
-    // ƒ{ƒ^ƒ“‚Ì‰Šú‚Ì‘å‚«‚³‚ğ•Û‘¶‚·‚é‚½‚ß‚Ì•Ï”
+    // ãƒœã‚¿ãƒ³ã®åˆæœŸã®å¤§ãã•ã‚’ä¿å­˜ã™ã‚‹ãŸã‚ã®å¤‰æ•°
     private Vector3[] _seleceScale = new Vector3[2];
-
-    // ‘I‘ğ’†‚Ìƒ{ƒ^ƒ“‚Ìî•ñ‚ğ•Û‘¶‚·‚é‚½‚ß‚Ì•Ï”
-    private GameObject _button;
 
     // Start is called before the first frame update
     void Start()
     {
-        //uStartvƒ{ƒ^ƒ“‚ğ‘I‘ğó‘Ô‚É‚·‚é
+        //ã€ŒStartã€ãƒœã‚¿ãƒ³ã‚’é¸æŠçŠ¶æ…‹ã«ã™ã‚‹
         EventSystem.current.SetSelectedGameObject(_selectButton[0]);
 
-        // ‚·‚×‚Ä‚Ìƒ{ƒ^ƒ“‚Ì‰Šú‚Ì‘å‚«‚³‚ğ•Û‘¶‚·‚é
+        // ã™ã¹ã¦ã®ãƒœã‚¿ãƒ³ã®åˆæœŸã®å¤§ãã•ã‚’ä¿å­˜ã™ã‚‹
         for (int i = 0; i < _selectButton.Length; i++)
         {
             _seleceScale[i] = _selectButton[i].transform.localScale;
@@ -43,58 +41,58 @@ public class TitleButtonManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ‘I‘ğ’†‚Ìƒ{ƒ^ƒ“‚Ìî•ñ‚ğ•Û‘¶‚·‚é
-        _button = EventSystem.current.currentSelectedGameObject;
+        // é¸æŠä¸­ã®ãƒœã‚¿ãƒ³ã®æƒ…å ±ã‚’ä¿å­˜ã™ã‚‹
+        GameObject _button = EventSystem.current.currentSelectedGameObject;
 
-        // ƒ{ƒ^ƒ“‚Ì‰‰oˆ—
+        // ãƒœã‚¿ãƒ³ã®æ¼”å‡ºå‡¦ç†
         if (_button == _selectButton[0])
         {
-            // ƒ{ƒ^ƒ“‚Ì‘å‚«‚³‚ğŠg‘åk¬‚·‚éˆ—
+            // ãƒœã‚¿ãƒ³ã®å¤§ãã•ã‚’æ‹¡å¤§ç¸®å°ã™ã‚‹å‡¦ç†
             Button_Scaling(_selectButton[0]);
             
-            // ‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢ƒ{ƒ^ƒ“‚ğ‰Šú‚Ì‘å‚«‚³‚É’¼‚·ˆ—
+            // é¸æŠã•ã‚Œã¦ã„ãªã„ãƒœã‚¿ãƒ³ã‚’åˆæœŸã®å¤§ãã•ã«ç›´ã™å‡¦ç†
             _selectButton[1].transform.localScale = Reset_ImageScale(_seleceScale[1]);
         }
         if (_button == _selectButton[1])
         {
-            // ƒ{ƒ^ƒ“‚Ì‘å‚«‚³‚ğŠg‘åk¬‚·‚éˆ—
+            // ãƒœã‚¿ãƒ³ã®å¤§ãã•ã‚’æ‹¡å¤§ç¸®å°ã™ã‚‹å‡¦ç†
             Button_Scaling(_selectButton[1]);
 
-            // ‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢ƒ{ƒ^ƒ“‚ğ‰Šú‚Ì‘å‚«‚³‚É’¼‚·ˆ—
+            // é¸æŠã•ã‚Œã¦ã„ãªã„ãƒœã‚¿ãƒ³ã‚’åˆæœŸã®å¤§ãã•ã«ç›´ã™å‡¦ç†
             _selectButton[0].transform.localScale = Reset_ImageScale(_seleceScale[0]);
         }
     }
 
-    // ƒ{ƒ^ƒ“‚Ì‘å‚«‚³‚ğŠg‘åk¬‚·‚é‰‰o‚ÌŠÖ”
+    // ãƒœã‚¿ãƒ³ã®å¤§ãã•ã‚’æ‹¡å¤§ç¸®å°ã™ã‚‹æ¼”å‡ºã®é–¢æ•°
     void Button_Scaling(GameObject image)
     {
-        // “®‚«‚ğŠŠ‚ç‚©‚É‚·‚éˆ—
-        scallSize = Time.deltaTime * moveSpeed;
+        // å‹•ãã‚’æ»‘ã‚‰ã‹ã«ã™ã‚‹å‡¦ç†
+        float scallSize = Time.deltaTime * moveSpeed;
 
-        // Šg‘åk¬‚ğŠÔ‚ÅØ‚è‘Ö‚¦‚éˆ—
-        if (time < 0) { enlarge = true; }
-        if (time > maxTime) { enlarge = false; }
+        // æ‹¡å¤§ç¸®å°ã‚’æ™‚é–“ã§åˆ‡ã‚Šæ›¿ãˆã‚‹å‡¦ç†
+        if (_time < 0) { _enlarge = true; }
+        if (_time > maxTime) { _enlarge = false; }
 
-        // ƒIƒuƒWƒFƒNƒg‚Ì‘å‚«‚³‚ğ•Ï‚¦‚éˆ—
-        if (enlarge)
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¤§ãã•ã‚’å¤‰ãˆã‚‹å‡¦ç†
+        if (_enlarge)
         {
-            // Šg‘å‚·‚é‚½‚ß‚ÉŠÔ‚ğ‘‚â‚·
-            time += Time.deltaTime;
+            // æ‹¡å¤§ã™ã‚‹ãŸã‚ã«æ™‚é–“ã‚’å¢—ã‚„ã™
+            _time += Time.deltaTime;
 
-            // ƒIƒuƒWƒFƒNƒg‚Ì‘å‚«‚³‚ğ‘å‚«‚­‚·‚é
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¤§ãã•ã‚’å¤§ããã™ã‚‹
             image.transform.localScale += new Vector3(scallSize, scallSize, scallSize);
         }
         else
         {
-            // k¬‚·‚é‚½‚ß‚ÉŠÔ‚ğŒ¸‚ç‚·
-            time -= Time.deltaTime;
+            // ç¸®å°ã™ã‚‹ãŸã‚ã«æ™‚é–“ã‚’æ¸›ã‚‰ã™
+            _time -= Time.deltaTime;
 
-            // ƒIƒuƒWƒFƒNƒg‚Ì‘å‚«‚³‚ğ¬‚³‚­‚·‚é
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¤§ãã•ã‚’å°ã•ãã™ã‚‹
             image.transform.localScale -= new Vector3(scallSize, scallSize, scallSize);
         }
     }
 
-    // ƒ{ƒ^ƒ“‚Ì‘å‚«‚³‚ğ‰Šú‚Ì‘å‚«‚³‚É–ß‚·ŠÖ”
+    // ãƒœã‚¿ãƒ³ã®å¤§ãã•ã‚’åˆæœŸã®å¤§ãã•ã«æˆ»ã™é–¢æ•°
     Vector3 Reset_ImageScale(Vector3 afterObj)
     {
         return afterObj;

@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 180
+  m_text: 90
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b107b8af4505822458e677beae32c416, type: 2}
   m_sharedMaterial: {fileID: 6871410942187384133, guid: b107b8af4505822458e677beae32c416,
@@ -369,7 +369,7 @@ MonoBehaviour:
   finishWaitTime: 2
   isCountDown: 0
   isFinish: 0
-  lifeTime: 180
+  lifeTime: 90
 --- !u!4 &159385695
 Transform:
   m_ObjectHideFlags: 0

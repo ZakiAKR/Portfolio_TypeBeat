@@ -1,192 +1,192 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering;
 
-// ŠÔ‚ÉŠÖ‚·‚éƒ\[ƒXƒR[ƒh
+// æ™‚é–“ã«é–¢ã™ã‚‹ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰
 
 public class TimerManager : MonoBehaviour
 {
-    // ƒJƒEƒ“ƒgƒ_ƒEƒ“‚ğ•\¦‚³‚¹‚étext‚ğæ“¾
-    [SerializeField] private TextMeshProUGUI countDownText;
-    // ƒJƒEƒ“ƒgƒ_ƒEƒ“‚ğ•\¦‚³‚¹‚éText‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
-    [SerializeField] private GameObject countObj;
+    // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã‚’è¡¨ç¤ºã•ã›ã‚‹textã‚’å–å¾—
+    [SerializeField]
+    private TextMeshProUGUI countDownText;
+    // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã‚’è¡¨ç¤ºã•ã›ã‚‹Textã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
+    [SerializeField]
+    private GameObject countObj;
 
     [Space(10)]
 
-    // ‘S‘Ì‚ÌŠÔ‚ğ•\¦‚³‚¹‚étext‚ğæ“¾
-    [SerializeField] private TextMeshProUGUI lifeText;
+    // å…¨ä½“ã®æ™‚é–“ã‚’è¡¨ç¤ºã•ã›ã‚‹textã‚’å–å¾—
+    [SerializeField]
+    private TextMeshProUGUI lifeText;
 
     [Space(10)]
 
-    // I—¹‚ğ•\¦‚³‚¹‚étext‚ğæ“¾
-    [SerializeField] private TextMeshProUGUI overText;
-    // I—¹‚ğ•\¦‚³‚¹‚étext‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
-    [SerializeField] private GameObject overObj;
+    // çµ‚äº†ã‚’è¡¨ç¤ºã•ã›ã‚‹textã‚’å–å¾—
+    [SerializeField]
+    private TextMeshProUGUI overText;
+    // çµ‚äº†ã‚’è¡¨ç¤ºã•ã›ã‚‹textã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
+    [SerializeField]
+    private GameObject overObj;
 
     [Space(10)]
 
-    // ˆê–â•ª‚ÌŠÔ‚Ì•¶š‚ğ•\¦‚·‚étext‚ğæ“¾
-    [SerializeField] private TextMeshProUGUI mondaiTimeText;
+    // ä¸€å•åˆ†ã®æ™‚é–“ã®æ–‡å­—ã‚’è¡¨ç¤ºã™ã‚‹textã‚’å–å¾—
+    [SerializeField]
+    private TextMeshProUGUI mondaiTimeText;
 
     [Space(10)]
 
-    // ƒV[ƒ“‘JˆÚ‚ğ‚·‚é‚½‚ß‚ÉuTranstionManagerv‚ğæ“¾
-    [SerializeField] public TranstionManager transScene;
+    // ã‚·ãƒ¼ãƒ³é·ç§»ã‚’ã™ã‚‹ãŸã‚ã«ã€ŒTranstionManagerã€ã‚’å–å¾—
+    [SerializeField]
+    public TranstionManager transScene;
 
-    // ƒƒCƒ“‚ÌƒVƒXƒeƒ€‚ÌŠÖ”‚ğg—p‚·‚é‚½‚ßAuTypingManagerv‚ğæ“¾
-    [SerializeField] public TypingManager typeSystem;
-
-    [Space(10)]
-
-    // Start‚Ì•\¦ŠÔ
-    public float startWaitTime;
-    // Finish‚Ì•\¦ŠÔ
-    public float finishWaitTime;
+    // ãƒ¡ã‚¤ãƒ³ã®ã‚·ã‚¹ãƒ†ãƒ ã®é–¢æ•°ã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã€ã€ŒTypingManagerã€ã‚’å–å¾—
+    [SerializeField]
+    public TypingManager typeSystem;
 
     [Space(10)]
 
-    // Start‚É“ü‚éÛ‚Ì‰‰o‚ªI‚í‚Á‚½‚©‚Ç‚¤‚©‚Ì”»’è
-    [HideInInspector]public bool isCountDown;
+    // Startã®è¡¨ç¤ºæ™‚é–“
+    [SerializeField]
+    private float startWaitTime;
+    // Finishã®è¡¨ç¤ºæ™‚é–“
+    [SerializeField]
+    private float finishWaitTime;
 
-    // ‘S‘Ì‚ÌŠÔ‚ªI‚í‚Á‚½‚©‚Ç‚¤‚©‚Ì”»’è
-    [HideInInspector]public bool isFinish;
+    [Space(10)]
 
-    // ŠÔŒv‘ª‚·‚é—p‚Ì•Ï”
+    // Startã«å…¥ã‚‹éš›ã®æ¼”å‡ºãŒçµ‚ã‚ã£ãŸã‹ã©ã†ã‹ã®åˆ¤å®š
+    [HideInInspector]
+    public bool isCountDown;
+
+    // å…¨ä½“ã®æ™‚é–“ãŒçµ‚ã‚ã£ãŸã‹ã©ã†ã‹ã®åˆ¤å®š
+    [HideInInspector]
+    public bool isFinish;
+
+    // æ™‚é–“è¨ˆæ¸¬ã™ã‚‹ç”¨ã®å¤‰æ•°
     private float _countDown = 3f;
-    // ƒJƒEƒ“ƒgƒ_ƒEƒ“‚Ì”š‚ğ•\¦‚·‚é‚½‚ß‚Ì•Ï”
-    private int _count;
 
     [Space(10)]
 
-    // ‘S‘Ì‚ÌŠÔ‚ğŒv‘ª
-    public float lifeTime;
-    // ‘S‘Ì‚ÌŠÔ‚Ì”š‚ğ•\¦‚·‚é‚½‚ß‚Ì•Ï”
-    private int _life;
+    // å…¨ä½“ã®æ™‚é–“ã‚’è¨ˆæ¸¬
+    [SerializeField]
+    private float lifeTime;
 
     [Space(10)]
 
-    // ˆê–â•ª‚ÌŠÔ‚Ì’l‚ğ•Û‚·‚é‚½‚ß‚Ì•Ï”
+    // ä¸€å•åˆ†ã®æ™‚é–“ã®å€¤ã‚’ä¿æŒã™ã‚‹ãŸã‚ã®å¤‰æ•°
     public static float typeTime = 8;
-    // ˆê–â•ª‚ÌŠÔ‚ğ‘ª’è‚·‚é‚½‚ß‚Ì•Ï”
-    [HideInInspector] public static float _typeTime;
-    // ˆê–â•ª‚ÌŠÔ‚Ì’l‚ğtext‚Å•\¦‚·‚é‚½‚ß‚Ì•Ï”
-    private int _type;
+    // ä¸€å•åˆ†ã®æ™‚é–“ã‚’æ¸¬å®šã™ã‚‹ãŸã‚ã®å¤‰æ•°
+    [HideInInspector]
+    public static float _typeTime ;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         countObj.SetActive(true);
         overObj.SetActive(false);
-        _count = 0;
-        _life = 0;
+
         isCountDown = false;
         isFinish = false;
-        _typeTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ƒJƒEƒ“ƒgƒ_ƒEƒ“‚Ìˆ—
+        // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã®å‡¦ç†
         if (_countDown >= 0)
         {
-            // ŠÔ‚ğŒv‘ª‚µ‚Äc‚èŠÔ‚ğ•\¦‚·‚éˆ—
-            // ŠÔ‚ğŒ¸‚ç‚·
-            _countDown -= Time.deltaTime;
-
-            // text‚É•\¦‚·‚é‚½‚ß‚ÉintŒ^‚É•ÏŠ·
-            _count = (int)_countDown + 1;
-
-            // c‚èŠÔ‚ğ•\¦
-            countDownText.text = _count.ToString();
+            // æ™‚é–“ã‚’è¨ˆæ¸¬ã€è¡¨ç¤º
+            _countDown = Func_Time(_countDown, Time.deltaTime, countDownText);
         }
-        // _isCountDown‚Ì”»’è‚ğ•t‚¯‚é‚Ì‚ÍuStartv‚ª•\¦‚³‚ê‚Ä‚¢‚é‚É‘S‘Ì‚ÌŠÔ‚ªŒv‘ª‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß
+        // _isCountDownã®åˆ¤å®šã‚’ä»˜ã‘ã‚‹ã®ã¯ã€ŒStartã€ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹æ™‚ã«å…¨ä½“ã®æ™‚é–“ãŒè¨ˆæ¸¬ã•ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚
         if (!isCountDown && _countDown <= 0)
         {
-            // Start‚ğ•\¦‚·‚é‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+            // Startã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
             StartCoroutine(Delay_StartText());
         }
 
-        // ‘S‘Ì‚ÌŠÔ‚Ìˆ—
-        // _isFinish‚Ì”»’è‚ğ•t‚¯‚Ä‚¢‚é‚Ì‚ÍuFinishv‚ª•\¦‚³‚ê‚Ä‚¢‚é‚Æ‚«‚É‘S‘Ì‚ÌŠÔ‚ªŒv‘ª‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß
+        // å…¨ä½“ã®æ™‚é–“ã®å‡¦ç†
+        // _isFinishã®åˆ¤å®šã‚’ä»˜ã‘ã¦ã„ã‚‹ã®ã¯ã€ŒFinishã€ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ã¨ãã«å…¨ä½“ã®æ™‚é–“ãŒè¨ˆæ¸¬ã•ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚
         if (isCountDown && !isFinish)
         {
-            // ŠÔ‚ğŒv‘ª‚µ‚Äc‚èŠÔ‚ğ•\¦‚·‚éˆ—
-            // ŠÔ‚ğŒ¸‚ç‚·
-            lifeTime -= Time.deltaTime;
-
-            // text‚É•\¦‚·‚é‚½‚ß‚ÉintŒ^‚É•ÏŠ·
-            _life = (int)lifeTime;
-
-            // c‚èŠÔ‚ğ•\¦
-            lifeText.text = _life.ToString();
+            // æ™‚é–“ã‚’è¨ˆæ¸¬ã€è¡¨ç¤º
+            lifeTime = Func_Time(lifeTime, Time.deltaTime, lifeText);
         }
         if (lifeTime <= 0)
         {
-            // ‘S‘Ì‚ÌŠÔ‚ªI—¹‚µ‚½
+            // å…¨ä½“ã®æ™‚é–“ãŒçµ‚äº†ã—ãŸ
             isFinish = true;
 
-            // Finish‚ğ•\¦‚·‚é‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+            // Finishã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
             StartCoroutine(Delay_OverText());
         }
 
-        // ƒJƒEƒ“ƒgƒ_ƒEƒ“Œã‚Å‚©‚ÂA‘S‘Ì‚ÌŠÔ“à‚Å‚Ìˆ—‚ğ‚³‚¹‚é
+        // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³å¾Œã§ã‹ã¤ã€å…¨ä½“ã®æ™‚é–“å†…ã§ã®å‡¦ç†ã‚’ã•ã›ã‚‹
         if (isCountDown && !isFinish)
         {
             if (_typeTime > 0)
             {
-                // ŠÔ‚ğŒv‘ª‚µ‚Äc‚èŠÔ‚ğ•\¦‚·‚éˆ—
-                // ŠÔ‚ğŒ¸‚ç‚·
-                _typeTime -= Time.deltaTime;
-
-                // text‚É•\¦‚·‚é‚½‚ß‚ÉintŒ^‚É•ÏŠ·
-                _type = (int)_typeTime;
-
-                // c‚èŠÔ‚ğ•\¦
-                mondaiTimeText.text = _type.ToString();
+                // æ™‚é–“ã‚’è¨ˆæ¸¬ã€è¡¨ç¤º
+                _typeTime = Func_Time(_typeTime, Time.deltaTime, mondaiTimeText);
             }
             if (_typeTime <= 0)
             {
-                // –â‘è‚Ì‰Šú‰»‚ÌŠÖ”‚ğŒÄ‚Ño‚µ
+                // å•é¡Œã®åˆæœŸåŒ–ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã—
                 typeSystem.Initi_Question();
             }
         }
 
     }
 
-    // Start‚ğ•\¦‚·‚é‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+    // æ™‚é–“ã‚’è¨ˆæ¸¬ã—ã¦æ®‹ã‚Šæ™‚é–“ã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†
+    private float Func_Time(float saveTime, float deltaTime, TextMeshProUGUI text)
+    {
+        // æ™‚é–“ã‚’æ¸›ã‚‰ã™
+        saveTime -= deltaTime;
+
+        // textã«è¡¨ç¤ºã™ã‚‹ãŸã‚ã«intå‹ã«å¤‰æ›
+        int _type = (int)saveTime;
+
+        // æ®‹ã‚Šæ™‚é–“ã‚’è¡¨ç¤º
+        text.text = _type.ToString();
+
+        return saveTime;
+    }
+
+    // Startã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
     private IEnumerator Delay_StartText()
     {
-        // text‚ÉuStartv‚ğ•\¦
+        // textã«ã€ŒStartã€ã‚’è¡¨ç¤º
         countDownText.text = "START!!";
 
-        // text‚ğˆê’èŠÔ•\¦‚µ‚½‚Ü‚Ü‚É‚·‚é
+        // textã‚’ä¸€å®šæ™‚é–“è¡¨ç¤ºã—ãŸã¾ã¾ã«ã™ã‚‹
         yield return new WaitForSeconds(startWaitTime);
 
-        // text‚ÌƒIƒuƒWƒFƒNƒg‚ğ”ñ•\¦‚É‚·‚é
+        // textã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹
         countObj.SetActive(false);
 
-        // ƒJƒEƒ“ƒgƒ_ƒEƒ“‚ªI—¹‚µ‚½
+        // ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ãŒçµ‚äº†ã—ãŸ
         isCountDown = true;
     }
 
-    // Finish‚ğ•\¦‚·‚é‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+    // Finishã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
     private IEnumerator Delay_OverText()
     {
-        // text‚ÌƒIƒuƒWƒFƒNƒg‚ğ•\¦‚É‚·‚é
+        // textã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã«ã™ã‚‹
         overObj.SetActive(true);
 
-        // text‚ÉuFinishv‚ğ•\¦
+        // textã«ã€ŒFinishã€ã‚’è¡¨ç¤º
         overText.text = "FINISH!!";
 
-        // text‚ğˆê’èŠÔ•\¦‚µ‚½‚Ü‚Ü‚É‚·‚é
+        // textã‚’ä¸€å®šæ™‚é–“è¡¨ç¤ºã—ãŸã¾ã¾ã«ã™ã‚‹
         yield return new WaitForSeconds(finishWaitTime);
 
-        // ƒŠƒUƒ‹ƒg‰æ–Ê‚ğ‘JˆÚ‚·‚é
+        // ãƒªã‚¶ãƒ«ãƒˆç”»é¢ã‚’é·ç§»ã™ã‚‹
         transScene.To_Result();
     }
 }

@@ -1,17 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ƒ^ƒCƒsƒ“ƒO‚Ì‘Å‚Á‚½•¶š‚ÆŠÔˆá‚¦‚Ä‘Å‚Á‚½•¶š‚Ì”‚ğŠÇ—‚·‚éƒ\[ƒXƒR[ƒh
+// ã‚¿ã‚¤ãƒ”ãƒ³ã‚°ã®æ‰“ã£ãŸæ–‡å­—ã¨é–“é•ãˆã¦æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’ç®¡ç†ã™ã‚‹ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰
 
 public class CountManager : MonoBehaviour
 {
-    // ‘Å‚Á‚½•¶š‚Ì”‚ğŠÇ—‚·‚é•Ï”
-    [HideInInspector] public static int countMojiNum;
+    // æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’ç®¡ç†ã™ã‚‹å¤‰æ•°
+    [HideInInspector] 
+    public static int countMojiNum;
 
-    // ŠÔˆá‚¦‚Ä‘Å‚Á‚½•¶š‚Ì”‚ğŠÇ—‚·‚é•Ï”
-    [HideInInspector] public static int missMojiNum;
+    // é–“é•ãˆã¦æ‰“ã£ãŸæ–‡å­—ã®æ•°ã‚’ç®¡ç†ã™ã‚‹å¤‰æ•°
+    [HideInInspector] 
+    public static int missMojiNum;
 
-    // ‰ğ“š‚Æ‚µ‚Äo‚³‚ê‚½•¶š‚Ì”‚ğŠÇ—‚·‚é•Ï”
-    [HideInInspector] public static int kaitouMojiNum;
+    // è§£ç­”ã¨ã—ã¦å‡ºã•ã‚ŒãŸæ–‡å­—ã®æ•°ã‚’ç®¡ç†ã™ã‚‹å¤‰æ•°
+    [HideInInspector] 
+    public static int kaitouMojiNum;
 }

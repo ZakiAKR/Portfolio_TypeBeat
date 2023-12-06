@@ -430,13 +430,13 @@ MonoBehaviour:
   _selectButton: {fileID: 1618883106}
   firstWaitTime: 1
   secondWaitTime: 2
-  scallSize: 0.01
   maxTime: 1
   moveSpeed: 0.01
   valuation:
   - 0.8
   - 0.5
   - 0.2
+  missPoint: 1.2
 --- !u!4 &372689896
 Transform:
   m_ObjectHideFlags: 0
