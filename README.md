@@ -43,13 +43,9 @@
 - [工夫した点について/スクリプトの説明](工夫した点.md)
   
 ## 担当解説動画・プレイ動画
-- 担当解説動画  
-  [Googleドライブ()]()  
-  [Youtube(限定公開)]()  
-  
-- プレイ動画  
-  [Googleドライブ(TypeBeat_プレイ動画.mp4)](https://drive.google.com/file/d/1dE4oVb_jWLHZ2UfcWy_xosMYNAiJl-Y6/view?usp=drive_link)  
-  [Youtube(限定公開)]()  
+プレイ動画 (約２分)  
+  - [Googleドライブ(TypeBeat_プレイ動画.mp4)](https://drive.google.com/drive/folders/14gwnUN7PB6bLG85Lw6E7HcYZvOGEXn1o?usp=drive_link)  
+  - [Youtube(限定公開)](https://youtu.be/1zMAAsOeXL8)  
   
 ## 実行ファイル
 実行ファイルダウンロード先 : [Googleドライブ](https://drive.google.com/drive/folders/1PQ6N0tARPNwBagYML7QXD7sxD8VK__q3?usp=drive_link)  
